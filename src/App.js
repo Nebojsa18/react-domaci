@@ -1,4 +1,3 @@
-
 import './Styles/App.css';
 import Home from './Pages/Home';
 import Navbar from './Components/Navbar';
@@ -7,17 +6,27 @@ import {BrowserRouter, BrowserRouter as Router, Route, Routes} from "react-route
 import { useState } from 'react';
 import Context from './Components/Context';
 import SearchFilter from './Components/SearchFilter';
+import RegionFilter from './Components/RegionFilter';
+import leftArrow from "../src/Images/left-arrow.png"
 
 function App() {
 
   const[searchTerm,setSearchTerm] = useState("");
+  const[region,setRegion] = useState("");
+  const[themeColor,setThemeColor]=useState("main-wrapper");
+  const[arrow,setArrow]=useState(leftArrow);
+
+  console.log(region)
 
   return (
-    <div className='main-wrapper'>
+    <div className={themeColor}>
       <BrowserRouter>
-      <Context.Provider value={{searchTerm,setSearchTerm}}>
+      <Context.Provider value={{searchTerm,setSearchTerm,region,setRegion,setThemeColor,arrow,setArrow}}>
         <Navbar/>
-        <SearchFilter/>
+        <div className='upper-part'>
+            <SearchFilter/>
+            <RegionFilter/>
+          </div>
             <Routes>
               <Route path='/' index element={<Home/>}/>
               <Route path=':name' element={<CountryInfo/>}/>
