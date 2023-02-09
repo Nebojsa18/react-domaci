@@ -5,6 +5,8 @@ import "../Styles/Home.css"
 import { useNavigate } from "react-router-dom";
 import Context from '../Components/Context';
 import SearchFilter from '../Components/SearchFilter';
+import Spinner from '../Components/Spinner';
+import RegionFilter from '../Components/RegionFilter';
 
 const Home = () => {
 
@@ -12,7 +14,8 @@ const Home = () => {
         const[countries,setCountries] = useState([]);
         const context = useContext(Context);
         const region = context.region;
-        const searchTerm = context.searchTerm;
+        const searchTerm = context.searchTerm;  
+        const[isLoading,setIsLoading] = useState(false); 
 
         useEffect(()=>{
             axios.get("https://restcountries.com/v3.1/all")
@@ -21,6 +24,7 @@ const Home = () => {
                 let filteredData = searchTerm ? countriesCopy.filter((country)=>country.name.common.toLowerCase().includes(searchTerm.toLowerCase())): countriesCopy;
                 //console.log(res);
                 setCountries(filteredData)
+                setIsLoading(true)
             }).catch(err=>{
                 console.log(err)
             })
@@ -34,6 +38,7 @@ const Home = () => {
 
         useEffect(()=>{
             if(region===region){
+                console.log(region)
                 axios.get(`https://restcountries.com/v3.1/region/${region}`).
                 then(res=>{
                     console.log(res);
@@ -48,8 +53,14 @@ const Home = () => {
 
 
   return (
-    <div className='main'>
-                    {countries.map(country=>
+    <div className='home-wrapper'>
+        <div className='filters-box'>
+            <SearchFilter/>
+            <RegionFilter/>
+        </div>
+        <div className='main'>
+            {isLoading?(
+                countries.map(country=>
                     <div key={country.cca2} className='country-card' onClick={()=>openCountryInfo(country.name.common)}>
                         <div className='country-img'>
                             <img src={country.flags.svg}/>
@@ -61,8 +72,13 @@ const Home = () => {
                             <label>Capital: {country.capital}</label>
                         </div>
                     </div>
+                        )
+                    )
+                :(  
+                <Spinner/>
                 )}
                 </div>
+        </div>
   )
 }
 
