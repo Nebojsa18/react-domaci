@@ -5,8 +5,6 @@ import CountryInfo from './Pages/CountryInfo';
 import {BrowserRouter, BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { createContext, useState } from 'react';
 import Context from './Components/Context';
-import SearchFilter from './Components/SearchFilter';
-import RegionFilter from './Components/RegionFilter';
 import leftArrow from "../src/Images/left-arrow.png"
 
 function App() {

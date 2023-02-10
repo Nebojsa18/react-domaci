@@ -22,7 +22,6 @@ const Home = () => {
             .then(res=>{
                 let countriesCopy = [...res.data];
                 let filteredData = searchTerm ? countriesCopy.filter((country)=>country.name.common.toLowerCase().includes(searchTerm.toLowerCase())): countriesCopy;
-                //console.log(res);
                 setCountries(filteredData)
                 setIsLoading(true)
             }).catch(err=>{

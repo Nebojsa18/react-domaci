@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useFetcher, useParams } from 'react-router-dom';
 import Context from '../Components/Context';
 import "../Styles/CountryInfo.css"
-/*import back from "../Images/left-arrow.png"*/
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Spinner from '../Components/Spinner';
@@ -17,7 +16,6 @@ const CountryInfo = () => {
 
     const[country,setCountry] = useState({});
     const[isLoading,setIsLoading] = useState(false);
-    //const[borders,setBorders] = useState(false);
 
     useEffect(()=>{
             axios.get(`https://restcountries.com/v3.1/name/${name}`)
@@ -28,19 +26,6 @@ const CountryInfo = () => {
                 console.log(err);
             })
     },[name])
-
-    // useEffect(()=>{
-    //   if(isLoading){
-    //       if("borders" in country){
-    //         setBorders(true);
-    //       }
-    //   }else{
-    //     console.log("error")
-    //   } 
-    // },[borders])
-
-    
-
 
 
   return (
@@ -67,15 +52,8 @@ const CountryInfo = () => {
                 </div>
                 <div className='right-side-info'>
                   <label><span>Top Level Domain: </span>{country.tld[0]}</label>
-                  {/* <label><span>Currencies: </span>{country.currencies.EUR.name}</label> */}
                   <label><span>Lanugages: </span>{Object.values(country.languages)+" "}</label>
                 </div>
-                {/* <div className='border-country'>
-                  <label>Border countries: </label>
-                  {country.borders.map(border=>
-                    <div className='border-country-btn'>{border}</div>
-                  )}
-                </div> */}
               </div>
             </div>
           )
